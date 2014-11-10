@@ -52,7 +52,7 @@
 - (void)viewDidLoad {
     delegate = [[UIApplication sharedApplication]delegate];
     //apiurlの初期化
-    apiurl = @"http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=e6cb3dcef9a8c408&format=json&genre=G001&count=100";
+    apiurl = @"http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=e6cb3dcef9a8c408&format=json&genre=G001&count=100&is_open_time=now";
     NSLog(@"%@",delegate.accoutid);
     //距離に関するパラメータを格納するための変数
     NSString* range = @"&range=";
@@ -119,6 +119,37 @@
             //ループを抜け出す
             break;
         }
+    }
+    //hitostrが文字列「制限なし」でないかどうか
+    if (![self.hitostr isEqualToString:@"制限なし"]) {
+        //人数に関するパラメータの設定の処理
+        NSArray *hitoarray = [NSArray arrayWithObjects:@"5人〜",@"10人〜",@"20人〜",@"30人〜",@"50人〜", nil];
+        NSString *hitoaddstr;
+        //文字列hitostrが配列hitoarrayの中にある要素の中から同じものがないかどうか調べる
+        for (int i = 0; i < [hitoarray count]; i++) {
+            if ([self.hitostr isEqualToString:[hitoarray objectAtIndex:i]]) {
+                switch (i) {
+                    case 0:
+                        hitoaddstr = @"&party_capacity=5";
+                        break;
+                    case 1:
+                        hitoaddstr = @"&party_capacity=10";
+                        break;
+                    case 2:
+                        hitoaddstr = @"&party_capacity=20";
+                        break;
+                    case 3:
+                        hitoaddstr = @"&party_capacity=30";
+                        break;
+                    case 4:
+                        hitoaddstr = @"&party_capacity=50";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        apiurl = [apiurl stringByAppendingString:hitoaddstr];
     }
     //managerの初期化
     manager = [[CLLocationManager alloc]init];
@@ -326,8 +357,6 @@
     [self.map addAnnotation:izakayaano];
     //ラベルfukidashiに表示する文字列を変更
     self.fukidashi.text = @"ここで待ってるからな";
-    minute = 0;
-    seconds = 15;
     //1秒ごとにメソッドcountdownを実行
     timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countdown) userInfo:nil repeats:YES];
     

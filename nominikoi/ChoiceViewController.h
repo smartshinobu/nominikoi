@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *timepicker;
 //予算を選ぶためのUIPicker
 @property (weak, nonatomic) IBOutlet UIPickerView *moneypicker;
+//人数を選ぶためのUIPicker
+@property (weak, nonatomic) IBOutlet UIPickerView *hitopicker;
 //アカウントのIDを格納するための変数
 @property (nonatomic) NSString* accoutid;
 //注文ボタンを押したら呼ばれるメソッド

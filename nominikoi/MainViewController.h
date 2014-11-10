@@ -15,6 +15,8 @@
 @property(nonatomic) NSString* timestr;
 //予算の選択肢の中から選ばれた項目を格納する変数
 @property(nonatomic) NSString* moneystr;
+//人数の選択肢の中から選ばれた項目を格納する変数
+@property(nonatomic) NSString *hitostr;
 //制限時間を表示するためのラベル
 @property (weak, nonatomic) IBOutlet UILabel *timelabel;
 //インジケーターを表す変数

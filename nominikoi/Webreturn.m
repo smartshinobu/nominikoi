@@ -15,7 +15,7 @@
 +(NSArray*)JSONArrayData:(NSString*)url{
     //NSErrorの初期化
     NSError *err = nil;
-    //requestによって返ってきたデータを生成
+    //url先にあるデータをNSDataとして格納
     NSData *data = [self webdata:url];
     //dataを元にJSONオブジェクトを生成
     NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
@@ -42,7 +42,7 @@
 +(NSDictionary*)JSONDictinaryData:(NSString*)url{
     //NSErrorの初期化
     NSError *err = nil;
-    //requestによって返ってきたデータを生成
+    //url先にあるデータをNSDataとして格納
     NSData *data = [self webdata:url];
     //dataを元にJSONオブジェクトを生成
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
@@ -61,5 +61,15 @@
     //strをNSData型の変数に変換
     NSData *trimdata = [str dataUsingEncoding:NSUTF8StringEncoding];
     return trimdata;
+}
+
+//url先にある画像のデータを返すメソッド
++(UIImage*)WebImage:(NSString *)url{
+    //url先にあるデータをNSDataとして格納
+    NSData *data = [self webdata:url];
+    //dataを元にUIImageを生成
+    UIImage *img = [UIImage imageWithData:data];
+    //値を返す
+    return img;
 }
 @end

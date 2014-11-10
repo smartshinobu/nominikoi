@@ -17,6 +17,8 @@
     NSArray *timearray;
     //選択する予算の要素を格納する配列
     NSArray *moneyarray;
+    //選択する人数の要素を格納する配列
+    NSArray *hitoarray;
     //行った店の履歴の情報を格納する配列
     NSMutableArray *shoparray;
     //削除する店を確認するためのアラート
@@ -54,12 +56,15 @@
     self.timepicker.dataSource = self;
     self.moneypicker.delegate = self;
     self.moneypicker.dataSource = self;
+    self.hitopicker.delegate = self;
+    self.hitopicker.dataSource = self;
     //選択中の行に目印をつけるようにする
     self.timepicker.showsSelectionIndicator = YES;
     self.moneypicker.showsSelectionIndicator = NO;
     //配列の初期化
     timearray = [NSArray arrayWithObjects:@"5分", @"10分",@"15分",nil];
     moneyarray = [NSArray arrayWithObjects:@"〜2000円",@"2000〜3000円",@"3000〜4000円",@"4000〜5000円",@"制限なし", nil];
+    hitoarray = [NSArray arrayWithObjects:@"5人〜",@"10人〜",@"20人〜",@"30人〜",@"50人〜",@"制限なし", nil];
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
@@ -91,9 +96,11 @@
     if (pickerView == self.timepicker) {
         //行数をtimearrayの要素の数とする
             return [timearray count];
-    } else{
+    } else if(pickerView == self.moneypicker){
          //行数をmoneyarrayの要素の数とする
         return [moneyarray count];
+    }else{
+        return [hitoarray count];
     }
     
 }
@@ -105,9 +112,11 @@
     if (pickerView == self.timepicker) {
         //timearrayの要素を返す
         return [timearray objectAtIndex:row];
-    }else{
+    }else if(pickerView == self.moneypicker){
         //moneyarrayの要素を返す
     return [moneyarray objectAtIndex:row];
+    }else{
+        return [hitoarray objectAtIndex:row];
     }
 }
 
@@ -142,8 +151,10 @@
         MainViewController *maincon = segue.destinationViewController;
         //mapcon.timestrにtimepickerで選んだ要素を格納
         maincon.timestr = [timearray objectAtIndex:[self.timepicker selectedRowInComponent:0]];
-        //mapcon.moneyにmoneypickerで選んだ要素を格納
+        //mapcon.moneystrにmoneypickerで選んだ要素を格納
         maincon.moneystr = [moneyarray objectAtIndex:[self.moneypicker selectedRowInComponent:0]];
+        //mapcon.hitostrにhitopickerで選んだ要素を格納
+        maincon.hitostr = [hitoarray objectAtIndex:[self.hitopicker selectedRowInComponent:0]];
     }
 }
 

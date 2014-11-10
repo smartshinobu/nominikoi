@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface Webreturn : NSObject
 +(NSArray*)JSONArrayData:(NSString*)url;
 +(NSData*)webdata:(NSString*)url;
 +(NSDictionary*)JSONDictinaryData:(NSString*)url;
 +(NSData*)ServerData:(NSString*)url;
++(UIImage*)WebImage:(NSString*)url;
 @end
